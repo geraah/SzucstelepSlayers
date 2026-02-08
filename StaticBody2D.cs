@@ -13,9 +13,12 @@ namespace SzűcstelepSlayers {
         public Vector2 Size;
         public Color BodyColor;
 
-        public StaticBody2D(Vector2 PositionValue, Vector2 SizeValue) {
+        public Vector2 TopLeft => Position - Size / 2;
+
+        public StaticBody2D(Vector2 PositionValue, Vector2 SizeValue, Color BodyColorValue) {
             Position = PositionValue;
             Size = SizeValue;
+            BodyColor = BodyColorValue;
         }
 
         public void Update() {
@@ -24,12 +27,13 @@ namespace SzűcstelepSlayers {
         public void Draw() {
 
             Raylib.DrawRectangle(
-                (int)(Position.X - Size.X) / 2,
-                (int)(Position.Y - Size.Y) / 2,
-                (int)Size.X, 
-                (int)Size.Y, 
+                (int)TopLeft.X,
+                (int)TopLeft.Y,
+                (int)Size.X,
+                (int)Size.Y,
                 BodyColor
             );
+            Console.WriteLine("Drawing static body");
         }
     }
 }

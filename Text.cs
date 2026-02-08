@@ -28,7 +28,7 @@ namespace SzűcstelepSlayers {
         public void Draw() {
             
             int Width = (Settings.ScreenWidth - TextWidth) / 2;
-            int Height = Settings.ScreenHeight / 2;
+            int Height = (Settings.ScreenHeight - FontSize) / 2;
 
             Raylib.DrawText(TextContent, Width, Height, FontSize, TextColor);
         }

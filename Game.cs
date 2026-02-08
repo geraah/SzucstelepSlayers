@@ -12,15 +12,19 @@ namespace SzűcstelepSlayers {
 
         public List<IGameObject> GameObjects = new List<IGameObject>();
         
-        public Map map = new Map();
+        public static Map map = new Map();
 
         public void LoadMap(int MapNumber) {
 
             switch (MapNumber) {
+                case 1: 
+                    map.Load(Maps.Map1());
+                    break;
                 default:
                     map.Load(Maps.Map1());
                     break;
             }
+
         }
         public void Update() {
 
@@ -33,6 +37,12 @@ namespace SzűcstelepSlayers {
 
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.Brown);
+
+            map.Draw();
+
+            string text = "mi a cigány";
+            int textWidth = Raylib.MeasureText(text, 20);
+            Raylib.DrawText("mi a cigány", (ScreenWidth - textWidth) / 2, (ScreenHeight - 20) / 2, 20, Color.Black);
 
             foreach (var GameObject in GameObjects) {
                 GameObject.Draw();

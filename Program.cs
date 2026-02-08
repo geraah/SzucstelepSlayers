@@ -13,6 +13,7 @@ internal class Program {
         Raylib.InitWindow(Settings.ScreenWidth, Settings.ScreenHeight, "Hoki");
 
         Game game = new Game();
+        game.LoadMap(1);
 
         while (!Raylib.WindowShouldClose()) {
 
@@ -20,6 +21,7 @@ internal class Program {
             game.Draw();
 
         }
+
         Raylib.CloseWindow();
 
     }

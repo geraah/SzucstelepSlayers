@@ -11,7 +11,6 @@ namespace SzűcstelepSlayers {
         List<IGameObject> MapObjects = new List<IGameObject>();
 
         public void Load(List<IGameObject> MapObjectsValue) {
-            MapObjects.Clear();
             MapObjects = MapObjectsValue;
         }
         
@@ -21,7 +20,7 @@ namespace SzűcstelepSlayers {
             }
         }
         public void Draw() {
-            foreach (var MapObject in MapObjects) {
+            foreach (IGameObject MapObject in MapObjects) {
                 MapObject.Draw();   
             }
         }
