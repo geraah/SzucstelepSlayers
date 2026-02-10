@@ -1,0 +1,6 @@
+HUDItem class:
+position : x y,
+size : width height
+Content: text
+thing to do on interaction: text maybe
+
