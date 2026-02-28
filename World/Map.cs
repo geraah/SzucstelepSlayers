@@ -10,8 +10,8 @@ namespace SzűcstelepSlayers {
 
         List<IGameObject> MapObjects = new List<IGameObject>();
 
-        public void Load(List<IGameObject> MapObjectsValue) {
-            MapObjects = MapObjectsValue;
+        public void Load(List<IGameObject> MapObjects) {
+            this.MapObjects = MapObjects;
         }
         
         public void Update() {

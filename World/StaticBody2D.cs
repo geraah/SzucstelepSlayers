@@ -15,10 +15,12 @@ namespace SzűcstelepSlayers {
 
         public Vector2 TopLeft => Position - Size / 2;
 
-        public StaticBody2D(Vector2 PositionValue, Vector2 SizeValue, Color BodyColorValue) {
-            Position = PositionValue;
-            Size = SizeValue;
-            BodyColor = BodyColorValue;
+        public StaticBody2D(Vector2 Position, Vector2 Size, Color BodyColor) {
+            
+            this.Position = Position;
+            this.Size = Size;
+            this.BodyColor = BodyColor;
+        
         }
 
         public void Update() {
@@ -33,7 +35,6 @@ namespace SzűcstelepSlayers {
                 (int)Size.Y,
                 BodyColor
             );
-            Console.WriteLine("Drawing static body");
         }
     }
 }

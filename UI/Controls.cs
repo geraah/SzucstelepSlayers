@@ -5,10 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SzűcstelepSlayers {
-    public enum GameState {
-        StartMenu,
-        Playing,
-        Paused,
-        Options
+    public class Controls {
     }
 }

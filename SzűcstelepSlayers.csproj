@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="Raylib-cs" Version="7.0.2" />
+	<Content Include="Assets\Fonts\Expose-Regular.otf">
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
   </ItemGroup>
 
 </Project>
