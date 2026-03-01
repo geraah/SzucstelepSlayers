@@ -13,9 +13,10 @@ namespace SzűcstelepSlayers {
         private Color BodyColor;
         private Vector2 Position;
         private Vector2 Size;
-        private Action OnClick;
+        private Action OnClick; 
 
         private Vector2 TopLeft => Position - Size / 2;
+
         public Button(Font TextFont, string TextContent, int FontSize, Color TextColor, Color BodyColor, Vector2 Position, Vector2 Size, Action OnClick) {
             
             this.text = new Text(TextFont, TextContent, Position, FontSize, TextColor);
@@ -25,7 +26,6 @@ namespace SzűcstelepSlayers {
             this.OnClick = OnClick;
 
         }
-
 
         private bool IsMouseOver() {
             
@@ -44,13 +44,13 @@ namespace SzűcstelepSlayers {
 
         public void Draw() {
 
-            Raylib.DrawRectangle(
-                (int)TopLeft.X,
-                (int)TopLeft.Y,
-                (int)Size.X,
-                (int)Size.Y,
-                BodyColor
-            );
+            //Raylib.DrawRectangle(
+            //    (int)TopLeft.X,
+            //    (int)TopLeft.Y,
+            //    (int)Size.X,
+            //    (int)Size.Y,
+            //    BodyColor
+            //);
 
             text.Draw();
         }

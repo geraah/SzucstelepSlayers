@@ -14,4 +14,10 @@
 	</Content>
   </ItemGroup>
 
+  <ItemGroup>
+	<Content Include="Assets\Shaders\stars.frag">
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+  </ItemGroup>
+
 </Project>

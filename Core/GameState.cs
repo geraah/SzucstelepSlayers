@@ -8,6 +8,8 @@ namespace SzűcstelepSlayers {
     public enum GameState {
 
         StartMenu,
+        Controls,
+        Credits,
         Playing,
         Paused,
         Options,

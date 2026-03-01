@@ -10,8 +10,18 @@ namespace SzűcstelepSlayers {
 
         public static Font PersonaFont;
 
+        public static Shader StarsShader;
+        public static int StarsTimeLocation;
+        public static int StarsResolutionLocation;
+
         public static void Load() {
+            
             PersonaFont = Raylib.LoadFontEx("Assets/Fonts/Expose-Regular.otf", 256, null, 0);
+            
+            StarsShader = Raylib.LoadShader(null, "Assets/Shaders/stars.frag");
+            StarsTimeLocation = Raylib.GetShaderLocation(StarsShader, "time");
+            StarsResolutionLocation = Raylib.GetShaderLocation(StarsShader, "resolution");
+
         }
     }
 }

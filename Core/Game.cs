@@ -11,20 +11,70 @@ namespace SzűcstelepSlayers {
     public class Game {
 
         public StateManager stateManager = new StateManager();
+        
         public List<IGameObject> GameObjects = new List<IGameObject>();
+        public Map map = new Map();
         
-        public static Map map = new Map();
-        public MainMenu mainMenu;
+        private MainMenu? mainMenu;
+        private Controls? controls;
+        private Credits? credits;
+        private Playing? playing;
         
-        private GameState currentState = GameState.StartMenu;
+        private GameState currentState;
 
         public Game() {
-            mainMenu = new MainMenu(stateManager);
             stateManager.OnStateChanged += OnStateChanged;
+            stateManager.ChangeState(GameState.StartMenu);
+        }
+
+
+        void CreateOrNull(GameState newState) {
+
+            mainMenu = null;
+            controls = null;
+            credits = null;
+            playing = null;
+            
+            switch (newState) {
+
+                case GameState.StartMenu:
+
+                    mainMenu = new MainMenu(stateManager);
+                    break;
+
+                case GameState.Controls:
+
+                    controls = new Controls(stateManager);
+                    break;
+                    
+                case GameState.Credits:
+
+                    credits = new Credits(stateManager);
+                    break;
+
+                case GameState.Playing:
+
+                    playing = new Playing(map, GameObjects, stateManager);
+                    break;
+
+                case GameState.Paused:
+                    
+                    break;
+                    
+                case GameState.Options:
+                    
+                    break;
+                    
+            }
+
         }
 
         void OnStateChanged(GameState newState) {
+            
             currentState = newState;
+
+            CreateOrNull(currentState);
+            
         }
 
         public void LoadMap(int MapNumber) {
@@ -46,76 +96,23 @@ namespace SzűcstelepSlayers {
         }
         public void Update() {
 
+            if (currentState == GameState.Paused) return;
 
-            switch (currentState) {
-
-                case GameState.StartMenu:
-                    
-                    mainMenu.Update();
-                    break;
-
-                case GameState.Playing:
-                    
-                    map.Update();
-                    
-                    foreach (var GameObject in GameObjects) {
-                        GameObject.Update();
-                    }
-
-                    break;
-
-                case GameState.Paused:
-                    
-                    break;
-
-                case GameState.Options:
-                    
-                    break;
-
-                default:
-                    
-                    break;
-
-            }
-
+            mainMenu?.Update();
+            controls?.Update();
+            credits?.Update();
+            playing?.Update();
 
         }
         public void Draw() {
 
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.Brown);
+            Raylib.ClearBackground(Color.Red);
 
-
-            switch (currentState) {
-
-                case GameState.StartMenu:
-                    
-                    mainMenu.Draw();
-                    break;
-                
-                case GameState.Playing:
-
-                    map.Draw();
-
-                    foreach (var GameObject in GameObjects) {
-                        GameObject.Draw();
-                    }
-
-                    break;
-                
-                case GameState.Paused:
-                    
-                    break;
-                
-                case GameState.Options:
-                
-                    break;
-                
-                default:
-
-                    break;
-
-            }
+            mainMenu?.Draw();
+            controls?.Draw();
+            credits?.Draw();
+            playing?.Draw();
 
             Raylib.EndDrawing();
 

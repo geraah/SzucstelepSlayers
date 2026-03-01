@@ -10,36 +10,18 @@ using Raylib_cs;
 namespace SzűcstelepSlayers {
     public class MainMenu : IGameObject {
         
-        private Button StartButton;
-        private Button ControlsButton;
-        private Button CreditsButton;
-        private Button ExitButton;
-
         private StateManager stateManager;
 
-        private void StartButtonOnClick() {
-            
-            stateManager.ChangeState(GameState.Playing);
-        
-        }
+        private Button StartButton = null!;
+        private Button ControlsButton = null!;
+        private Button CreditsButton = null!;
+        private Button ExitButton = null!;
 
-        private void ControlsButtonOnClick() {
+        private Text GameTitle = null!;
 
-        }
+        private Background background = null!;
 
-        private void CreditsButtonOnClick() {
-
-        }
-
-        private void ExitButtonOnClick() {
-
-            stateManager.ChangeState(GameState.Exit);
-
-        }
-
-        public MainMenu(StateManager stateManager) {
-            
-            this.stateManager = stateManager;
+        private void InitButtons() {
 
             Vector2 StartButtonPosition = new Vector2(Settings.ScreenWidth / 2f, Settings.ScreenHeight / 2f);
             Vector2 ControlsButtonPosition = new Vector2(Settings.ScreenWidth / 2f, Settings.ScreenHeight / 2f + 150);
@@ -48,14 +30,42 @@ namespace SzűcstelepSlayers {
             
             Vector2 ButtonSize = new Vector2(300, 100);
             int ButtonFontSize = 100;
+            Color ButtonTextColor = Color.Black;
 
-            StartButton = new Button(Assets.PersonaFont, "Start", ButtonFontSize, Color.White, Color.Black, StartButtonPosition, ButtonSize, StartButtonOnClick);
-            ControlsButton = new Button(Assets.PersonaFont, "Controls", ButtonFontSize, Color.White, Color.Black, ControlsButtonPosition, ButtonSize, ControlsButtonOnClick);
-            CreditsButton = new Button(Assets.PersonaFont, "Credits", ButtonFontSize, Color.White, Color.Black, CreditsButtonPosition, ButtonSize, CreditsButtonOnClick);
-            ExitButton = new Button(Assets.PersonaFont, "Exit", ButtonFontSize, Color.White, Color.Black, ExitButtonPosition, ButtonSize, ExitButtonOnClick);
+            Action StartButtonOnClick = () => stateManager.ChangeState(GameState.Playing);
+            Action ControlsButtonOnClick = () => stateManager.ChangeState(GameState.Controls);
+            Action CreditsButtonOnClick = () => stateManager.ChangeState(GameState.Credits);
+            Action ExitButtonOnClick = () => stateManager.ChangeState(GameState.Exit);
+
+            StartButton = new Button(Assets.PersonaFont, "Start", ButtonFontSize, ButtonTextColor, Color.Black, StartButtonPosition, ButtonSize, StartButtonOnClick);
+            ControlsButton = new Button(Assets.PersonaFont, "Controls", ButtonFontSize, ButtonTextColor, Color.Black, ControlsButtonPosition, ButtonSize, ControlsButtonOnClick);
+            CreditsButton = new Button(Assets.PersonaFont, "Credits", ButtonFontSize, ButtonTextColor, Color.Black, CreditsButtonPosition, ButtonSize, CreditsButtonOnClick);
+            ExitButton = new Button(Assets.PersonaFont, "Exit", ButtonFontSize, ButtonTextColor, Color.Black, ExitButtonPosition, ButtonSize, ExitButtonOnClick);
         
         }
+        private void InitTitle() {
+
+            Vector2 GameTitlePosition = new Vector2(Settings.ScreenWidth / 2f, 300);
+            GameTitle = new Text(Assets.PersonaFont, "Sz\\''/cStEleP Sl/-\\yerS", GameTitlePosition, 200, Color.Black);
+            
+        }
+
+        private void InitBackground() {
+            background = new Background();
+        }
+
+        public MainMenu(StateManager stateManager) {
+            
+            this.stateManager = stateManager;
+            InitButtons();
+            InitTitle();
+            InitBackground();
+        
+        }
+
         public void Update() {
+
+            background.Update();
 
             StartButton.Update();
             ControlsButton.Update();
@@ -65,8 +75,8 @@ namespace SzűcstelepSlayers {
         }
 
         public void Draw() {
-            Vector2 GameTitlePosition = new Vector2(Settings.ScreenWidth / 2f, 300);
-            Text GameTitle = new Text(Assets.PersonaFont, "Sz\\''/cstelep Sl/-\\yers", GameTitlePosition, 200, Color.Black);
+
+            background.Draw();
             
             GameTitle.Draw();
 
@@ -74,8 +84,8 @@ namespace SzűcstelepSlayers {
             ControlsButton.Draw();
             CreditsButton.Draw();
             ExitButton.Draw();
-        }
 
+        }
 
     }
 }
