@@ -69,37 +69,40 @@ namespace SzűcstelepSlayers {
                 new Vector2(ThickLineEnd, 0),
                 new Vector2(ThickLineStart + Skew, Height),
                 new Vector2(ThickLineEnd + Skew, Height),
-                Color.White
+                Color.Black
             );
 
         }
 
         public void DrawStarArea() {
 
+            //Raylib.BeginShaderMode(Assets.StarsShader);
+            //    Raylib.DrawTexturePro(
+            //        whiteTexture,
+            //        new Rectangle(0, 0, 1, 1),
+            //        new Rectangle(StarAreaStart, 0, Width - StarAreaStart, Height),
+            //        Vector2.Zero,
+            //        0,
+            //        Color.White
+            //    );
+            //Raylib.EndShaderMode();
+
             Raylib.BeginShaderMode(Assets.StarsShader);
-                Raylib.DrawTexturePro(
-                    whiteTexture,
-                    new Rectangle(0, 0, 1, 1),
-                    new Rectangle(StarAreaStart, 0, Width - StarAreaStart, Height),
-                    Vector2.Zero,
-                    0,
-                    Color.White
-                );
+
+            Raylib.DrawTriangle(
+                new Vector2(Width, 0),
+                new Vector2(StarAreaStart, 0),
+                new Vector2(StarAreaStart + Skew, Height),
+                Color.White
+            );
+            Raylib.DrawTriangle(
+                new Vector2(Width, 0),
+                new Vector2(StarAreaStart + Skew, Height),
+                new Vector2(Width, Height),
+                Color.White
+            );
+
             Raylib.EndShaderMode();
-
-            //Raylib.DrawTriangle(
-            //    new Vector2(Width, 0),
-            //    new Vector2(StarAreaStart, 0),
-            //    new Vector2(StarAreaStart + Skew, Height),
-            //    Color.White
-            //);
-            //Raylib.DrawTriangle(
-            //    new Vector2(Width, 0),
-            //    new Vector2(StarAreaStart + Skew, Height),
-            //    new Vector2(Width, Height),
-            //    Color.White
-            //);
-
 
 
         }
