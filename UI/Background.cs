@@ -12,16 +12,16 @@ namespace SzűcstelepSlayers {
         private float Width => Settings.ScreenWidth;
         private float Height => Settings.ScreenHeight;
 
-        //private float ThinLineStart => Width * 0.30f;
-        //private float ThinLineEnd => Width * 0.35f;
-        //private float ThickLineStart => Width * 0.45f;
-        //private float ThickLineEnd => Width * 0.55f;
-        //private float StarAreaStart => Width * 0.65f;
-        private float ThinLineStart => Width * 0.45f;
-        private float ThinLineEnd => Width * 0.50f;
-        private float ThickLineStart => Width * 0.55f;
-        private float ThickLineEnd => Width * 0.65f;
-        private float StarAreaStart => Width * 0.70f;
+        private float ThinLineStart => Width * 0.40f;
+        private float ThinLineEnd => Width * 0.45f;
+        private float ThickLineStart => Width * 0.50f;
+        private float ThickLineEnd => Width * 0.60f;
+        private float StarAreaStart => Width * 0.65f;
+        //private float ThinLineStart => Width * 0.45f;
+        //private float ThinLineEnd => Width * 0.50f;
+        //private float ThickLineStart => Width * 0.55f;
+        //private float ThickLineEnd => Width * 0.65f;
+        //private float StarAreaStart => Width * 0.70f;
 
         private float Skew => Height * -0.45f;
 
@@ -103,7 +103,6 @@ namespace SzűcstelepSlayers {
             );
 
             Raylib.EndShaderMode();
-
 
         }
 

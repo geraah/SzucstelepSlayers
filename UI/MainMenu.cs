@@ -21,6 +21,8 @@ namespace SzűcstelepSlayers {
 
         private Background background = null!;
 
+        private RenderTexture2D bgRenderTexture;
+
         private void InitButtons() {
 
             Vector2 StartButtonPosition = new Vector2(Settings.ScreenWidth / 2f, Settings.ScreenHeight / 2f);
@@ -46,12 +48,16 @@ namespace SzűcstelepSlayers {
         private void InitTitle() {
 
             Vector2 GameTitlePosition = new Vector2(Settings.ScreenWidth / 2f, 300);
-            GameTitle = new Text(Assets.PersonaFont, "Sz\\''/cStEleP Sl/-\\yerS", GameTitlePosition, 200, Color.Black);
+            GameTitle = new Text(Assets.PersonaFont, "Sz\\''/cStEleP SlayerS", GameTitlePosition, 200, Color.Black);
             
         }
 
         private void InitBackground() {
             background = new Background();
+        }
+
+        private void InitTextContrastShader() {
+            bgRenderTexture = Raylib.LoadRenderTexture(Settings.ScreenWidth, Settings.ScreenHeight);
         }
 
         public MainMenu(StateManager stateManager) {
@@ -60,6 +66,7 @@ namespace SzűcstelepSlayers {
             InitButtons();
             InitTitle();
             InitBackground();
+            InitTextContrastShader();
         
         }
 
@@ -76,14 +83,35 @@ namespace SzűcstelepSlayers {
 
         public void Draw() {
 
+            Raylib.BeginTextureMode(bgRenderTexture);
+            Raylib.ClearBackground(Color.Red);
+
             background.Draw();
             
+            Raylib.EndTextureMode();
+
+            Raylib.DrawTextureRec(
+                bgRenderTexture.Texture,
+                new Rectangle(0, 0, bgRenderTexture.Texture.Width, -bgRenderTexture.Texture.Height),
+                Vector2.Zero,
+                Color.White
+            );
+
+            Raylib.BeginShaderMode(Assets.TextContrastShader);
+
+            Vector2 resolution = new Vector2(Settings.ScreenWidth, Settings.ScreenHeight);
+            Raylib.SetShaderValue(Assets.TextContrastShader, Assets.TextResoltionLocation, resolution, ShaderUniformDataType.Vec2);
+
+            Raylib.SetShaderValueTexture(Assets.TextContrastShader, Assets.TextBgTextureLocation, bgRenderTexture.Texture);
+
             GameTitle.Draw();
 
             StartButton.Draw();
             ControlsButton.Draw();
             CreditsButton.Draw();
             ExitButton.Draw();
+
+            Raylib.EndShaderMode();
 
         }
 

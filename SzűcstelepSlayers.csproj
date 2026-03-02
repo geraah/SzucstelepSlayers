@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+
   <ItemGroup>
     <PackageReference Include="Raylib-cs" Version="7.0.2" />
 	<Content Include="Assets\Fonts\Expose-Regular.otf">
@@ -15,9 +16,15 @@
   </ItemGroup>
 
   <ItemGroup>
+	  
 	<Content Include="Assets\Shaders\stars.frag">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
+	  
+	<Content Include="Assets\Shaders\text_contrast.frag">
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	  
   </ItemGroup>
 
 </Project>

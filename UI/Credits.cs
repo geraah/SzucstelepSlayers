@@ -13,12 +13,16 @@ namespace SzűcstelepSlayers {
 
         private Text CreditsTitle;
 
+        private Background background;
+
         public Credits(StateManager stateManager) {
             
             this.stateManager = stateManager;
 
             Vector2 CreditsTitlePosition = new Vector2(Settings.ScreenWidth / 2f, 300);
             CreditsTitle = new Text(Assets.PersonaFont, "Credits", CreditsTitlePosition, 200, Color.White);
+
+            background = new Background();
 
         }
 
@@ -30,10 +34,11 @@ namespace SzűcstelepSlayers {
 
         public void Draw() {
 
+            background.Draw();
+
             CreditsTitle.Draw();
 
         }
-
 
     }
 }

@@ -32,7 +32,7 @@ float sdStar(vec2 p, float r, float rf) {
 }
 
 // Egy adott csillag rétegének kirajzolása sávokkal
-vec4 drawStarLayer(vec2 uv, vec2 center, float scale, float rotSpeed, float timeOffset) {
+vec4 drawStarLayer(vec2 uv, vec2 center, float scale, float rotSpeed, float flowSpeed, float timeOffset) {
     vec2 p = uv - center;
     p *= rotate(time * rotSpeed * 0.9); // Forgás az idő függvényében
     p /= scale;
@@ -44,7 +44,7 @@ vec4 drawStarLayer(vec2 uv, vec2 center, float scale, float rotSpeed, float time
     if (d < 0.0) {
         // A távolságból csináljuk a fekete-fehér csíkokat
         // A time hozzáadásával érjük el, hogy a csíkok kifelé mozogjanak
-        float bands = step(0.5, fract(abs(d) * 8.0 - time * 0.5 + timeOffset));
+        float bands = step(0.5, fract(abs(d) * 8.0 - time * flowSpeed + timeOffset));
         return vec4(vec3(bands), 1.0);
     }
     
@@ -60,8 +60,6 @@ void main() {
     
     // Képarány korrigálása: Mivel a teljes képernyőt nézzük, a sima arányt használjuk
     uv.x *= resolution.x / resolution.y; 
-    
-    // --- INNENTŐL A KÓDOD UGYANAZ MARAD ---
 
     // Háttérszín (legalsó réteg - pl. fekete-fehér rács vagy sima szín, itt egy alap csillag)
     vec4 col = vec4(step(0.5, fract(length(uv) * 5.0 - time)), 0.0, 0.0, 1.0);
@@ -71,23 +69,24 @@ void main() {
     // Rápakoljuk a csillag rétegeket (a lassított értékekkel)
 
     // 1. FŐ CSILLAG: Hatalmas, lassan forgó az egész jobb oldal hátterében
-    vec4 star1 = drawStarLayer(uv, vec2(0.9, -0.2), 2.5, 0.04, 0.0);
+    // 1. Csillag: Befelé mozgó csíkok (zsugorodó hatás)
+    vec4 star1 = drawStarLayer(uv, vec2(0.9, -0.2), 2.5, 0.04, 0.3, 0.0);
     if (star1.a > 0.0) col = star1;
     
-    // 2. JOBB FELSŐ: Egy közepes csillag a jobb felső sarokban
-    vec4 star2 = drawStarLayer(uv, vec2(1.4, 0.7), 1.0, -0.08, 0.5);
+    // 2. Csillag: Kifelé mozgó csíkok (táguló hatás)
+    vec4 star2 = drawStarLayer(uv, vec2(1.4, 0.7), 1.0, -0.08, 0.3, 0.5);
     if (star2.a > 0.0) col = star2;
     
-    // 3. LENT KÖZÉPEN: Épphogy kilóg a vastag ferde sáv alól
-    vec4 star3 = drawStarLayer(uv, vec2(0.4, -0.8), 0.8, 0.1, 1.2);
+    // 3. Csillag: Nagyon gyors befelé mozgás
+    vec4 star3 = drawStarLayer(uv, vec2(0.4, -0.8), 0.8, 0.1, -0.3, 1.2);
     if (star3.a > 0.0) col = star3;
     
-    // 4. JOBB SZÉL: Félig lelóg a képernyőről a jobb oldalon
-    vec4 star4 = drawStarLayer(uv, vec2(1.7, 0.1), 1.4, -0.05, 2.0);
+    // 4. Csillag: Lassú tágulás
+    vec4 star4 = drawStarLayer(uv, vec2(1.7, 0.1), 1.4, -0.05, 0.3, 2.0);
     if (star4.a > 0.0) col = star4;
     
-    // 5. FENT KÖZÉPEN: Egy kisebb csillag a képernyő tetején
-    vec4 star5 = drawStarLayer(uv, vec2(0.6, 0.85), 0.6, 0.15, 3.1);
+    // 5. Csillag: Fordított irányú forgás és mozgás
+    vec4 star5 = drawStarLayer(uv, vec2(0.6, 0.85), 0.6, 0.15, -0.3, 3.1);
     if (star5.a > 0.0) col = star5;
 
     finalColor = col;
