@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SzűcstelepSlayers {
     public class Map {
 
-        List<IGameObject> MapObjects = new List<IGameObject>();
+        public List<IGameObject> MapObjects { get; private set; } = new List<IGameObject>();
 
         public void Load(List<IGameObject> MapObjects) {
             this.MapObjects = MapObjects;

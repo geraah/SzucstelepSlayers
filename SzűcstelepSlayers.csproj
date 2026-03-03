@@ -13,6 +13,9 @@
 	<Content Include="Assets\Fonts\Expose-Regular.otf">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
+	  <Content Include="Assets\Fonts\FOT-Rodin-Pro-UB.otf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
   </ItemGroup>
 
   <ItemGroup>

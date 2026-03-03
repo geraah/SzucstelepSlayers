@@ -26,9 +26,15 @@ namespace SzűcstelepSlayers {
             TextWidth = (int)Raylib.MeasureTextEx(TextFont, TextContent, FontSize, 0).X;
         
         }
+
+        public void SetContent(string newContent) {
+            
+            TextContent = newContent;
+            TextWidth = (int)Raylib.MeasureTextEx(TextFont, TextContent, FontSize, 0).X;
+
+        }
+
         public void Update() {
-            //TextContentDrawn      //Animated text
-            //Thread.Sleep(100);    //Animated text
         }
         public void Draw() {
 

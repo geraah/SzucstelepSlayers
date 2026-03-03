@@ -10,39 +10,40 @@ using Raylib_cs;
 namespace SzűcstelepSlayers {
     public static class Maps {
 
+        private static int Width => Settings.ScreenWidth;
+        private static int Height => Settings.ScreenHeight;
+
         public static List<IGameObject> Map1() {
 
             List<IGameObject> GameObjects = new List<IGameObject>();
 
+            // Főplatform - középen lent
             StaticBody2D MainGround = new StaticBody2D(
-                new Vector2(ScreenWidth / 2, ScreenHeight - 200),
-                new Vector2(ScreenWidth, 400),
-                Color.Red
+                new Vector2(Width * 0.5f, Height * 0.7f),
+                new Vector2(Width * 0.7f, Height * 0.25f),
+                Color.White
             );
             GameObjects.Add(MainGround);
 
-            StaticBody2D SideTileRight = new StaticBody2D(
-                new Vector2(
-                    MainGround.Position.X + 750,
-                    MainGround.Position.Y - MainGround.Size.Y
-                ),
-                new Vector2(500, 100),
-                Color.Black
-            );
-            GameObjects.Add(SideTileRight);
-
-
+            // Bal oldali platform - fent bal
             StaticBody2D SideTileLeft = new StaticBody2D(
-                new Vector2(
-                    MainGround.Position.X - 750,
-                    MainGround.Position.Y - MainGround.Size.Y
-                ),
-                new Vector2(500, 100),
-                Color.Black
+                new Vector2(Width * 0.25f, Height * 0.35f),
+                new Vector2(Width * 0.2f, Height * 0.03f),
+                Color.White
             );
             GameObjects.Add(SideTileLeft);
 
+            // Jobb oldali platform - fent jobb
+            StaticBody2D SideTileRight = new StaticBody2D(
+                new Vector2(Width * 0.75f, Height * 0.35f),
+                new Vector2(Width * 0.2f, Height * 0.03f),
+                Color.White
+            );
+            GameObjects.Add(SideTileRight);
+
             return GameObjects;
+        
         }
+
     }
 }

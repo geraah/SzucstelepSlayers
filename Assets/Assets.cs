@@ -9,6 +9,7 @@ namespace SzűcstelepSlayers {
     public static class Assets {
 
         public static Font PersonaFont;
+        public static Font SmashBrosFont;
 
         public static Shader StarsShader;
         public static int StarsTimeLocation;
@@ -21,7 +22,8 @@ namespace SzűcstelepSlayers {
         public static void Load() {
             
             PersonaFont = Raylib.LoadFontEx("Assets/Fonts/Expose-Regular.otf", 256, null, 0);
-            
+            SmashBrosFont = Raylib.LoadFontEx("Assets/Fonts/FOT-Rodin-Pro-UB.otf", 128, null, 0);
+            if (Raylib.IsFontValid(SmashBrosFont)) Console.WriteLine(SmashBrosFont);
             StarsShader = Raylib.LoadShader(null, "Assets/Shaders/stars.frag");
             StarsTimeLocation = Raylib.GetShaderLocation(StarsShader, "time");
             StarsResolutionLocation = Raylib.GetShaderLocation(StarsShader, "resolution");

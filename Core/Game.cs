@@ -107,7 +107,7 @@ namespace SzűcstelepSlayers {
         public void Draw() {
 
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.Black);
+            Raylib.ClearBackground(Color.Red);
 
             mainMenu?.Draw();
             controls?.Draw();
