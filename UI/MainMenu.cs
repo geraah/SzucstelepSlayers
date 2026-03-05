@@ -33,16 +33,18 @@ namespace SzűcstelepSlayers {
             Vector2 ButtonSize = new Vector2(300, 100);
             int ButtonFontSize = 100;
             Color ButtonTextColor = Color.Black;
+            float ButtonOutlineThickness = 0f;
+            Color? ButtonOutlineColor = null;
 
             Action StartButtonOnClick = () => stateManager.ChangeState(GameState.Playing);
             Action ControlsButtonOnClick = () => stateManager.ChangeState(GameState.Controls);
             Action CreditsButtonOnClick = () => stateManager.ChangeState(GameState.Credits);
             Action ExitButtonOnClick = () => stateManager.ChangeState(GameState.Exit);
 
-            StartButton = new Button(Assets.PersonaFont, "Start", ButtonFontSize, ButtonTextColor, Color.Black, StartButtonPosition, ButtonSize, StartButtonOnClick);
-            ControlsButton = new Button(Assets.PersonaFont, "Controls", ButtonFontSize, ButtonTextColor, Color.Black, ControlsButtonPosition, ButtonSize, ControlsButtonOnClick);
-            CreditsButton = new Button(Assets.PersonaFont, "Credits", ButtonFontSize, ButtonTextColor, Color.Black, CreditsButtonPosition, ButtonSize, CreditsButtonOnClick);
-            ExitButton = new Button(Assets.PersonaFont, "Exit", ButtonFontSize, ButtonTextColor, Color.Black, ExitButtonPosition, ButtonSize, ExitButtonOnClick);
+            StartButton = new Button(Assets.PersonaFont, "Start", ButtonFontSize, ButtonTextColor, Color.Blank, StartButtonPosition, ButtonSize, StartButtonOnClick, ButtonOutlineThickness, ButtonOutlineColor);
+            ControlsButton = new Button(Assets.PersonaFont, "Controls", ButtonFontSize, ButtonTextColor, Color.Blank, ControlsButtonPosition, ButtonSize, ControlsButtonOnClick, ButtonOutlineThickness, ButtonOutlineColor);
+            CreditsButton = new Button(Assets.PersonaFont, "Credits", ButtonFontSize, ButtonTextColor, Color.Blank, CreditsButtonPosition, ButtonSize, CreditsButtonOnClick, ButtonOutlineThickness, ButtonOutlineColor);
+            ExitButton = new Button(Assets.PersonaFont, "Exit", ButtonFontSize, ButtonTextColor, Color.Blank, ExitButtonPosition, ButtonSize, ExitButtonOnClick, ButtonOutlineThickness, ButtonOutlineColor);
         
         }
         private void InitTitle() {
@@ -71,6 +73,8 @@ namespace SzűcstelepSlayers {
         }
 
         public void Update() {
+
+            if (Raylib.IsKeyPressed(KeyboardKey.G)) stateManager.ChangeState(GameState.GameOver);
 
             background.Update();
 

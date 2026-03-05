@@ -21,7 +21,14 @@ namespace SzűcstelepSlayers {
         private int playerPercentSize = 70;
         private int playerLivesSize = 10;
         private int lineHeight = 80;
-        
+
+        private int livesPadding = 32;
+        private float livesOutlineThickness = 1.5f;
+        private Color livesOutlineColor = Color.Black;
+
+        private int playerNameOffset = 0;
+        private int playerPercentOffset = 15;
+        private int playerLivesOffset = 0;
 
         public HUD(List<Player> players) {
 
@@ -32,9 +39,9 @@ namespace SzűcstelepSlayers {
 
             foreach (Player player in players) {
 
-                Text playerName = new Text(Assets.PersonaFont, player.Name, Vector2.Zero, playerNameSize, Color.White);
-                Text playerPercent = new Text(Assets.SmashBrosFont, "0%", Vector2.Zero, playerPercentSize, Color.White);
-                
+                Text playerName = new Text(Assets.PersonaFont, player.Name, Vector2.Zero, playerNameSize, Color.White, 5, Color.Black);
+                Text playerPercent = new Text(Assets.SmashBrosFont, "0%", Vector2.Zero, playerPercentSize, Color.White, 5, Color.Black);
+
                 playerNames.Add(playerName);
                 playerPercents.Add(playerPercent);
 
@@ -58,18 +65,9 @@ namespace SzűcstelepSlayers {
             percent.Position = new Vector2(centerX, percentY);
 
             float damageRatio = MathF.Min(player.Damage / 150f, 1f);
-
-            if (damageRatio < 0.5) {
-                
-                float percentColor = damageRatio * 2f;
-                percent.TextColor = new Color((int)(255 * percentColor), 255, 0, 255);
-
-            } else {
-
-                float percentColor = (damageRatio - 0.5f) * 2f;
-                percent.TextColor = new Color(255, (int)(255 * (1f - percentColor)), 0, 255);
             
-            }
+            int otherChannels = (int)(255 * (1f - damageRatio));
+            percent.TextColor = new Color(255, otherChannels, otherChannels);
 
             percent.Draw();
 
@@ -79,14 +77,16 @@ namespace SzűcstelepSlayers {
 
             if (!ShowDetails) return;
 
-            int padding = 26;
-            int startX = centerX - (player.Lives * padding) / 2 + padding / 2;
+            int startX = centerX - (player.Lives * livesPadding) / 2 + livesPadding / 2;
 
             Color percentColor = Color.White;
 
             for (int i = 0; i < player.Lives; i++) {
 
-                Raylib.DrawCircle(startX + i * padding, livesY, playerLivesSize, percentColor);
+                int DrawPosition = startX + i * livesPadding;
+
+                if (livesOutlineThickness > 0) Raylib.DrawCircle(DrawPosition, livesY, playerLivesSize * livesOutlineThickness, livesOutlineColor);
+                Raylib.DrawCircle(DrawPosition, livesY, playerLivesSize, percentColor);
 
             }
 
@@ -96,9 +96,9 @@ namespace SzűcstelepSlayers {
 
             int centerX = (int)player.Position.X;
             
-            int nameY = (int)player.TopLeft.Y - lineHeight * 3;
-            int percentY = (int)player.TopLeft.Y - lineHeight * 2;
-            int livesY = (int)player.TopLeft.Y - lineHeight;
+            int nameY = (int)player.TopLeft.Y - lineHeight * 3 + playerNameOffset;
+            int percentY = (int)player.TopLeft.Y - lineHeight * 2 + playerPercentOffset;
+            int livesY = (int)player.TopLeft.Y - lineHeight + playerLivesOffset;
 
             DrawPlayerName(playerName, centerX, nameY);
             DrawPlayerPercent(player, playerPercent, centerX, percentY);

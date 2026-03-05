@@ -28,7 +28,23 @@ namespace SzűcstelepSlayers {
 
             return platforms;
 
-        }   
+        }
+
+        public List<IDamageable> GetDamageables() {
+
+            List<IDamageable> damageables = new List<IDamageable>();
+
+            foreach (Player player in Players) damageables.Add(player);
+
+            foreach (IGameObject GameObject in GameObjects) {
+
+                if (GameObject is IDamageable damageable) damageables.Add(damageable);
+
+            }
+
+            return damageables;
+
+        }
 
         private void InitPlayers(List<StaticBody2D> platforms) {
 
@@ -37,8 +53,8 @@ namespace SzűcstelepSlayers {
             Vector2 P1Position = new Vector2(Settings.ScreenWidth * 0.35f, Settings.ScreenHeight * 0.4f);
             Vector2 P2Position = new Vector2(Settings.ScreenWidth * 0.65f, Settings.ScreenHeight * 0.4f);
 
-            Player P1 = new Player("P1", P1Position, Settings.PlayerOneControls, stateManager, platforms);
-            Player P2 = new Player("P2", P2Position, Settings.PlayerTwoControls, stateManager, platforms);
+            Player P1 = new Player("P1", P1Position, Settings.PlayerOneControls, stateManager, platforms, this);
+            Player P2 = new Player("P2", P2Position, Settings.PlayerTwoControls, stateManager, platforms, this);
 
             Players.Add(P1);
             Players.Add(P2);
@@ -58,6 +74,46 @@ namespace SzűcstelepSlayers {
 
         }
 
+        private Player FindWinner() {
+
+            return Players.FirstOrDefault(player => player.Lives > 0) ?? Players.Last();
+
+        }
+
+        private void CheckDeathZone(Player player) {
+
+            float deathThreshold = Settings.ScreenHeight + 200;
+            float sideThreshold = 300;
+
+            if (player.Position.Y > deathThreshold ||
+                player.Position.X < -sideThreshold ||
+                player.Position.X > Settings.ScreenWidth + sideThreshold) {
+
+                Vector2 spawnPoint = new Vector2(Settings.ScreenWidth / 2, 200);
+                player.Respawn(spawnPoint);
+
+                int playersWithLives = 0;
+                foreach (Player p in Players) {
+
+                    if (p.Lives > 0) playersWithLives++;
+                    
+                }
+
+                if (playersWithLives <= 1) { 
+
+                    Player winner = FindWinner();
+
+                    MatchResults.WinnerName = winner.Name;
+                    MatchResults.WinnerLives = winner.Lives;
+                    MatchResults.MapName = "SzUcstelep";
+                        
+                    stateManager.ChangeState(GameState.GameOver);
+
+                }
+
+            }
+
+        }
 
         public void Update() {
 
@@ -65,9 +121,16 @@ namespace SzűcstelepSlayers {
 
             map.Update();
             foreach (IGameObject GameObject in GameObjects) GameObject.Update();
-            foreach (Player player in Players) player.Update();
+            foreach (Player player in Players) {
+
+                player.Update();
+
+                CheckDeathZone(player);
+
+            } 
 
         }
+
         public void Draw() {
 
             map.Draw();

@@ -13,6 +13,7 @@ namespace SzűcstelepSlayers {
         Playing,
         Paused,
         Options,
+        GameOver,
         Exit
 
     }

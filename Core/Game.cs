@@ -19,6 +19,7 @@ namespace SzűcstelepSlayers {
         private Controls? controls;
         private Credits? credits;
         private Playing? playing;
+        private GameOver? gameOver;
         
         private GameState currentState;
 
@@ -34,6 +35,7 @@ namespace SzűcstelepSlayers {
             controls = null;
             credits = null;
             playing = null;
+            gameOver = null;
             
             switch (newState) {
 
@@ -63,6 +65,11 @@ namespace SzűcstelepSlayers {
                     
                 case GameState.Options:
                     
+                    break;
+
+                case GameState.GameOver:
+
+                    gameOver = new GameOver(stateManager);
                     break;
                     
             }
@@ -102,6 +109,7 @@ namespace SzűcstelepSlayers {
             controls?.Update();
             credits?.Update();
             playing?.Update();
+            gameOver?.Update();
 
         }
         public void Draw() {
@@ -113,6 +121,7 @@ namespace SzűcstelepSlayers {
             controls?.Draw();
             credits?.Draw();
             playing?.Draw();
+            gameOver?.Draw();
 
             Raylib.EndDrawing();
 

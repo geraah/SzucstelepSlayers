@@ -13,6 +13,7 @@ namespace SzűcstelepSlayers {
         public KeyboardKey Up;
         public KeyboardKey Down;
         public KeyboardKey Jump;
+        public KeyboardKey Dash;
         public KeyboardKey Attack;
 
     }

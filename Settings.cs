@@ -20,6 +20,7 @@ namespace SzűcstelepSlayers {
             Up = KeyboardKey.W,
             Down = KeyboardKey.S,
             Jump = KeyboardKey.Space,
+            Dash = KeyboardKey.LeftShift,
             Attack = KeyboardKey.L
 
         };
@@ -29,6 +30,7 @@ namespace SzűcstelepSlayers {
             Right = KeyboardKey.K,
             Down = KeyboardKey.J,
             Jump = KeyboardKey.RightAlt,
+            Dash = KeyboardKey.V,
             Attack = KeyboardKey.Kp4
 
         };
